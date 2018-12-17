@@ -7,7 +7,7 @@ ko.bindingHandlers.popover = {
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             if ($element.data('bs.popover')) {
-                $element.popover('destroy');
+                $element.popover('dispose');
             }
         });
     },
