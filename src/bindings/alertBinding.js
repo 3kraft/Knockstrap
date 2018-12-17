@@ -18,7 +18,7 @@ ko.bindingHandlers.alert = {
             // ola lawal added this code to removeclassess for resulable alerts using hide show (issue #29)
             $element.removeClass("alert-info alert-danger alert-success ");
 
-            $element.addClass('alert fade in').addClass('alert-' + (ko.unwrap(value.type) || 'info'));
+            $element.addClass('alert fade show').addClass('alert-' + (ko.unwrap(value.type) || 'info'));
         } else if (element.nodeType === (typeof Node !== 'undefined' && Node.COMMENT_NODE || 8)) {
             template = 'alert';
             data = {
