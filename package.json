@@ -40,7 +40,6 @@
   },
   "github": "https://github.com/faulknercs/Knockstrap/",
   "scripts": {
-    "test": "grunt travis --verbose",
-    "prepare": "grunt"
+    "test": "grunt travis --verbose"
   }
 }
