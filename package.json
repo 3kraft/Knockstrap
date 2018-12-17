@@ -23,8 +23,8 @@
   "main": "build/knockstrap.js",
   "dependencies": {
     "jquery": ">=1.9.0",
-    "knockout": ">=2.3.0",
-    "bootstrap": "~3"
+    "knockout": ">=3.4.2",
+    "bootstrap": "~4"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -40,6 +40,7 @@
   },
   "github": "https://github.com/faulknercs/Knockstrap/",
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt travis --verbose",
+    "prepare": "grunt"
   }
 }
