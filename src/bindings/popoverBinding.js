@@ -51,14 +51,6 @@ ko.bindingHandlers.popover = {
                 });
 
                 ko.applyBindingsToDescendants(childContext, document.getElementById(id));
-
-                // bootstrap's popover calculates position before template renders,
-                // so we recalculate position, using bootstrap methods
-                var $popover = $('#' + id).parents('.popover'),
-                    popoverMethods = $element.data('bs.popover'),
-                    offset = popoverMethods.getCalculatedOffset(options.placement || 'right', popoverMethods.getPosition(), $popover.outerWidth(), $popover.outerHeight());
-
-                popoverMethods.applyPlacement(offset, options.placement || 'right');
             };
 
             // if there is no generated id - popover executes first time for this element
