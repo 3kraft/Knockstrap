@@ -74,8 +74,7 @@ ko.bindingHandlers.popover = {
             // Check options whether the popover should be closed on click automatically.
             // - closeOnClickOutside -> clicks inside the popover are ignored.
             // - closeOnClick -> all clicks will close the popover
-            var autoClose = (options.closeOnClick && options.closeOnClick === true)
-                || (options.closeOnClickOutside && options.closeOnClickOutside === true);
+            var autoClose = (options.closeOnClick && options.closeOnClick === true) || (options.closeOnClickOutside && options.closeOnClickOutside === true);
             if(autoClose) {
                 // bind a custom event when the popover is shown.
                 $element.on('show.bs.popover', function () {
