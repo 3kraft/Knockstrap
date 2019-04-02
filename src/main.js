@@ -17,6 +17,13 @@
 
 })(function (ko, $) {
     'use strict';
+
+    // Extend default JS sanitizer options to enable the 'data-bind' attribute in popovers and tooltips.
+    // whiteList was introduced in bootstrap 4.3.1 so check exitstence for backwards compatibility.
+    // @see https://getbootstrap.com/docs/4.3/getting-started/javascript/#sanitizer
+    if(typeof $.fn.tooltip.Constructor.Default.whiteList !== typeof undefined) {
+        $.fn.tooltip.Constructor.Default.whiteList['*'].push('data-bind');
+    }
     
     // @include utils.js
 
