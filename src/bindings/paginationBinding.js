@@ -8,21 +8,33 @@
 
         boundary: true,
 
+        alignmentClass: "justify-content-center",
+
+        showEmptyPagination: false,
+
         text: {
             first: 'First',
             last: 'Last',
             back: '&laquo;',
-            forward: '&raquo;'
+            forward: '&raquo;',
+            firstIconClass: '',
+            lastIconClass: '',
+            backIconClass: '',
+            forwardIconClass: ''
         }
     },
 
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    init: function () {
+        return { controlsDescendantBindings: true };
+    },
+
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var value = $.extend(true, {}, ko.bindingHandlers.pagination.defaults, valueAccessor());
 
         if (!ko.isObservable(value.currentPage)) {
             throw new TypeError('currentPage should be observable');
         }
-        
+
         if (!$.isNumeric(value.currentPage())) {
             value.currentPage(1);
         }
@@ -30,9 +42,8 @@
         var model = new Pagination(value);
 
         ko.renderTemplate('pagination', bindingContext.createChildContext(model), { templateEngine: ko.stringTemplateEngine.instance }, element);
-
-        return { controlsDescendantBindings: true };
     }
+
 };
 
 ko.bindingHandlers.pager = {
@@ -68,7 +79,7 @@ function Pager(data) {
     var self = this;
     
     self.isAligned = data.isAligned;
-    
+
     self.currentPage = data.currentPage;
 
     self.totalCount = data.totalCount;
@@ -77,11 +88,20 @@ function Pager(data) {
 
     self.text = data.text;
 
+    self.alignmentClass = data.alignmentClass;
+
+    self.showEmptyPagination = data.showEmptyPagination;
+
     self.pagesCount = ko.computed(function () {
         var total = ko.unwrap(self.totalCount),
             pageSize = ko.unwrap(self.pageSize);
 
         return Math.max(Math.ceil(total / pageSize), 1);
+    });
+
+    self.pagesCountSubscription = self.pagesCount.subscribe(function(newValue) {
+        window.console.log("agesCount.subscribe", newValue);
+        self.currentPage(1);
     });
 
     self.isBackDisabled = ko.computed(function () {
@@ -108,6 +128,10 @@ function Pager(data) {
 
         var current = self.currentPage();
         self.currentPage(current + 1);
+    };
+
+    self.dispose = function() {
+        self.pagesCountSubscription.dispose();
     };
 }
 

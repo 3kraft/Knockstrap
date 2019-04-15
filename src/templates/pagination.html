@@ -1,38 +1,38 @@
-<ul class="pagination">
+<ul class="pagination" data-bind="class: alignmentClass, if: (showEmptyPagination || pagesCount() > 1), visible: (showEmptyPagination || pagesCount() > 1)">
     <!-- ko if: boundary -->
-    <li class="ks-boundary-first" data-bind="css: { disabled: isBackDisabled }">
-        <a href="#" data-bind="with: text, click: goFirst">
-            <span data-bind="html: first"></span>
+    <li class="page-item ks-boundary-first" data-bind="css: { disabled: isBackDisabled }">
+        <a href="#" class="page-link" data-bind="with: text, click: goFirst">
+            <span data-bind="html: first, class: firstIconClass"></span>
         </a>
     </li>
     <!-- /ko -->
-    
+
     <!-- ko if: directions -->
-    <li class="ks-direction-back" data-bind="css: { disabled: isBackDisabled }">
-        <a href="#" data-bind="with: text, click: goBack">
-            <span data-bind="html: back"></span>
+    <li class="page-item ks-direction-back" data-bind="css: { disabled: isBackDisabled }">
+        <a href="#" class="page-link" data-bind="with: text, click: goBack">
+            <span data-bind="html: back, class: backIconClass"></span>
         </a>
     </li>
     <!-- /ko -->
 
     <!-- ko foreach: pages -->
-    <li data-bind="css: { active: isActive }">
-        <a href="#" data-bind="text: text, click: $parent.selectPage"></a>
+    <li class="page-item" data-bind="css: { active: isActive }">
+        <a href="#" class="page-link" data-bind="text: text, click: $parent.selectPage"></a>
     </li>
     <!-- /ko -->
-    
+
     <!-- ko if: directions -->
-    <li class="ks-direction-forward" data-bind="css: { disabled: isForwardDisabled }">
-        <a href="#" data-bind="with: text, click: goForward">
-            <span data-bind="html: forward"></span>
+    <li class="page-item ks-direction-forward" data-bind="css: { disabled: isForwardDisabled }">
+        <a href="#" class="page-link" data-bind="with: text, click: goForward">
+            <span data-bind="html: forward, class: forwardIconClass"></span>
         </a>
     </li>
     <!-- /ko -->
 
     <!-- ko if: boundary -->
-    <li class="ks-boundary-last" data-bind="css: { disabled: isForwardDisabled }">
-        <a href="#" data-bind="with: text, click: goLast">
-            <span data-bind="html: last"></span>
+    <li class="page-item ks-boundary-last" data-bind="css: { disabled: isForwardDisabled }">
+        <a href="#" class="page-link" data-bind="with: text, click: goLast">
+            <span data-bind="html: last, class: lastIconClass"></span>
         </a>
     </li>
     <!-- /ko -->
