@@ -15,7 +15,8 @@ ko.bindingHandlers.popover = {
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var $element = $(element),
             value = ko.unwrap(valueAccessor()),
-            options = (!value.options && !value.template ? ko.utils.unwrapProperties(value) : ko.utils.unwrapProperties(value.options)) || {};
+            options = (!value.options && !value.template ? ko.utils.unwrapProperties(value) : ko.utils.unwrapProperties(value.options)) || {},
+            customEvents = options.events ? options.events : null;
 
         if (value.template) {
             // use unwrap to track dependency from template, if it is observable
@@ -26,26 +27,26 @@ ko.bindingHandlers.popover = {
             var renderPopoverTemplate = function (eventObject) {
 
                 if (eventObject && eventObject.type === 'inserted') {
-                       $element.off('shown.bs.popover');
+                    $element.off('shown.bs.popover');
                 }
-                
+
                 var template = ko.unwrap(value.template),
                     internalModel;
 
                 if(typeof template === 'string') {
-                    internalModel = { 
+                    internalModel = {
                         $$popoverTemplate: $.extend({
                             name: value.template,
                             data: value.data
-                        }, value.templateOptions) 
+                        }, value.templateOptions)
                     };
 
                 } else {
                     internalModel = {
-                        $$popoverTemplate: value.template 
+                        $$popoverTemplate: value.template
                     };
                 }
-                
+
                 var childContext = bindingContext.createChildContext(bindingContext.$rawData, null, function(context) {
                     ko.utils.extend(context, internalModel);
                 });
@@ -93,6 +94,18 @@ ko.bindingHandlers.popover = {
                     $('body').off("click.closePopover");
                     $(this).removeClass('popover-trigger');
                 });
+            }
+
+            // register custom events
+            if(customEvents !== null) {
+                for (var customEvent in customEvents) {
+                    var callback = customEvents[customEvent];
+                    if(typeof callback === 'function' ) {
+                        $element.on(customEvent, function() {
+                            callback.apply(viewModel);
+                        });
+                    }
+                }
             }
 
             $element.on('shown.bs.popover inserted.bs.popover', function () {
