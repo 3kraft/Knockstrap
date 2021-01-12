@@ -98,12 +98,16 @@ ko.bindingHandlers.popover = {
 
             // register custom events
             if(customEvents !== null) {
+                var registerCallback = function(callback) {
+                    return function() {
+                        callback.apply(viewModel);
+                    };
+                };
+
                 for (var customEvent in customEvents) {
                     var callback = customEvents[customEvent];
                     if(typeof callback === 'function' ) {
-                        $element.on(customEvent, function() {
-                            callback.apply(viewModel);
-                        });
+                        $element.on(customEvent, registerCallback(callback));
                     }
                 }
             }
