@@ -80,7 +80,7 @@ ko.bindingHandlers.popover = {
                 // bind a custom event when the popover is shown.
                 $element.on('show.bs.popover', function () {
                     $(this).addClass('popover-trigger');
-                    $('body').on("click.closePopover", function () {
+                    $('html').on("click.closePopover", function () {
                         var clickOnPopover = options.closeOnClick ? false : $(event.target).closest(".popover.show").length > 0;
                         var clickOnPopoverTrigger = $(event.target).closest(".popover-trigger").length > 0;
                         if (!clickOnPopover && !clickOnPopoverTrigger) {
@@ -91,7 +91,7 @@ ko.bindingHandlers.popover = {
 
                 // remove the custom event when the popover is hidden.
                 $element.on('hide.bs.popover', function () {
-                    $('body').off("click.closePopover");
+                    $('html').off("click.closePopover");
                     $(this).removeClass('popover-trigger');
                 });
             }
